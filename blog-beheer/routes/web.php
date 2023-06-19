@@ -22,7 +22,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::middleware([
     'auth:sanctum',
@@ -32,4 +32,17 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
 });
+
+
+Route::get('/blogs', function () {
+    return Inertia::render('Blog/Blogs');
+})->name('blogs');
+
+// blog.detail
+Route::get('/blog/{id}', function ($id) {
+    return Inertia::render('Blog/BlogDetail', [
+        'id' => $id
+    ]);
+})->name('blog.detail');

@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+// Run php artisan refresh
+Artisan::command('refresh', function () {
+    $this->call('migrate:fresh');
+    $this->call('db:seed');
+})->purpose('Refresh database and seed');

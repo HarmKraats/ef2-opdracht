@@ -25,10 +25,15 @@ const switchToTeam = (team) => {
 const logout = () => {
     router.post(route('logout'));
 };
+
+
+
+const isLoggedIn = false;
 </script>
 
 <template>
     <div>
+
         <Head :title="title" />
 
         <Banner />
@@ -41,7 +46,7 @@ const logout = () => {
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('home')">
+                                <Link :href="route('dashboard')">
                                 <ApplicationMark class="block h-9 w-auto" />
                                 </Link>
                             </div>
@@ -49,7 +54,7 @@ const logout = () => {
                             <!-- Navigation Links -->
                             <div
                                 class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" v-if="$page.props.auth.user"
+                                <NavLink :href="route('dashboard')" v-if="isLoggedIn"
                                     :active="route().current('dashboard')">
                                     Dashboard
                                 </NavLink>
@@ -66,7 +71,7 @@ const logout = () => {
                             <div class="ml-3 relative">
                                 <!-- Teams Dropdown -->
                                 <Dropdown
-                                    v-if="$page.props.auth.user && $page.props.jetstream.hasTeamFeatures"
+                                    v-if="isLoggedIn && $page.props.jetstream.hasTeamFeatures"
                                     align="right" width="60">
                                     <template #trigger>
                                         <span class="inline-flex rounded-md">
@@ -159,11 +164,11 @@ const logout = () => {
                             </div>
 
                             <!-- Settings Dropdown -->
-                            <div class="ml-3 relative" v-if="$page.props.auth.user">
+                            <div class="ml-3 relative" v-if="isLoggedIn">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
                                         <button
-                                            v-if="$page.props.auth.user && $page.props.jetstream.managesProfilePhotos"
+                                            v-if="isLoggedIn && $page.props.jetstream.managesProfilePhotos"
                                             class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
                                             <img class="h-8 w-8 rounded-full object-cover"
                                                 :src="$page.props.auth.user.profile_photo_url"
@@ -245,7 +250,7 @@ const logout = () => {
                 <div :class="{ 'block': showingNavigationDropdown, 'hidden': !showingNavigationDropdown }"
                     class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" v-if="$page.props.auth.user"
+                        <ResponsiveNavLink :href="route('dashboard')" v-if="isLoggedIn"
                             :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
@@ -256,9 +261,9 @@ const logout = () => {
                     </div>
 
                     <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200" v-if="$page.props.auth.user">
+                    <div class="pt-4 pb-1 border-t border-gray-200" v-if="isLoggedIn">
                         <div class="flex items-center px-4">
-                            <div v-if="$page.props.auth.user && $page.props.jetstream.managesProfilePhotos"
+                            <div v-if="isLoggedIn && $page.props.jetstream.managesProfilePhotos"
                                 class="shrink-0 mr-3">
                                 <img class="h-10 w-10 rounded-full object-cover"
                                     :src="$page.props.auth.user.profile_photo_url"
@@ -357,7 +362,7 @@ const logout = () => {
         </nav>
 
         <!-- Page Heading -->
-        <header v-if="$slots.header && $page.props.auth.user" class="bg-white shadow">
+        <header v-if="$slots.header && isLoggedIn" class="bg-white shadow">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 <slot name="header" />
             </div>
