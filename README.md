@@ -24,7 +24,7 @@ php artisan migrate
 php artisan refresh
 ```
 
-# Project runnen | 2 terminals openen en dan de artisan serve runnen.
+# Project runnen | 2 terminals openen en dan de artisan serve openen.
 - cd into project
 ```
 cd blog-beheer
